@@ -24,6 +24,10 @@ a {
     color: #396684;
 }
 
+i {
+    
+}
+
 /* Container */
 
 .container {
@@ -104,17 +108,28 @@ a {
     transition: background .3s ease;
 }
 
+.delete-button {
+    background: #F7F7F7;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 300;
+    padding: .8rem;
+    margin-left:97% ;
+    
+    transition: background .3s ease;
+}
 .button:hover {
     background: #396684;
 }
 
 .button--secondary {
-    background: #888888;
-    border-bottom: 2px solid #717171;
+    
+    background-color: #43799c;
 }
 
 .button--secondary:hover {
-    background: #6E6E6E;
+    background: #43799c;
 }
 
 /* Note editor */
@@ -142,7 +157,13 @@ a {
 }
 
 /* Note List Item */
-
+.delete_icon
+{
+    color: rgb(161, 24, 24);
+    
+    
+    
+}
 .list-item {
     text-decoration: none;
     color: #333333;
