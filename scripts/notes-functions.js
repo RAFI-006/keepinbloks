@@ -11,6 +11,8 @@ const getSavedNotes = () => {
     }   
 }
 
+
+
 // Save notes to localStorage
 const saveNotes = (notes) => {
     localStorage.setItem('notes', JSON.stringify(notes));
