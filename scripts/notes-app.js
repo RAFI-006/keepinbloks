@@ -1,5 +1,7 @@
 import * as contract from '../blockcodes/contract-credentials.js';
+'use strict'
 //var contract = require('../blockcodes/contract-credentials');
+
 
 const jsonData = [{
     "constant": false,
@@ -70,19 +72,19 @@ window.addEventListener('load',async()=>{
     var isThere = await ethEnabled();
     getAccounts(function(result) {
         console.log(result[0]);
-       
+        localStorage.setItem('account', result[0]);
     
         var jsonStringify = JSON.stringify(jsonData);
         console.log(JSON.parse(jsonStringify)); 
     //    var contractJson = JSON.parse();
        
        var contract = new web3.eth.Contract(JSON.parse(jsonStringify),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
-       var s =  contract.methods.getData(web3.utils.asciiToHex("huzaif123"),0).call().then(
-        function(value) {
-          console.log(value); 
-          
-         getDataFromBlocks(value);
+       var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-inblocks"),0).call().then(
+      async  function (value)  {
 
+        
+         await getDataFromBlocks(value);
+              
         },
        )
        
@@ -94,14 +96,13 @@ window.addEventListener('load',async()=>{
 
 });
 
-function getDataFromBlocks(value)
+async function getDataFromBlocks(value)
 {
-   var byteArr = _base64ToArrayBuffer(value);
-   console.log(byteArr);
-   
-   var data = _bin2String(byteArr);
-   console.log(data);
-   
+  console.log("notes" + notes);
+  
+  localStorage.setItem('notes', JSON.stringify(new Array().push(value)));
+ 
+
 }
 function _bin2String(array) {
   var result = "";
@@ -143,11 +144,15 @@ function loadJsonData(callback)
         return request.responseText;
 }
 let notes = getSavedNotes();
+console.log("notesList");
+
+console.log(notes);
 const timeStamp = moment().valueOf();
 const filters = {
     searchText: '',
     sortBy: 'byEdited'
 };
+
 
 
 
@@ -162,7 +167,19 @@ function getAccounts(callback) {
         }
     });
 }
- 
+
+const saveNotesInBlocks = (notes) => {
+  var account =   localStorage.getItem('account');
+  console.log(account);
+  var contract = new web3.eth.Contract(JSON.parse(JSON.stringify(jsonData)),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
+
+  contract.methods.setData(web3.utils.asciiToHex("rafi-inblocks"),JSON.stringify(notes)).send({from:account});
+  
+  contract.events.NewValue({},function(error,event){
+  
+      console.log(event);
+  })
+}
 const ethEnabled = async () => {
   if (window.ethereum) {
     await window.ethereum.send('eth_requestAccounts');
@@ -173,20 +190,30 @@ const ethEnabled = async () => {
 }
 
 renderNotes(notes, filters);
-'use strict'
+
 
 
 document.querySelector('#create-note').addEventListener('click', () => {
-    const id = uuidv4();
-    notes.push({
-        id: id,
-        title: '',
-        body: '',
-        createdAt: timeStamp,
-        updatedAt: timeStamp,
-    });
-    saveNotes(notes);
-    location.assign(`./edit.html#${id}`);
+  const id = uuidv4();
+ 
+  var  s ={
+    id: id,
+    title: 'Hey',
+    body: 'My first data into blockchain via javascript',
+    createdAt: timeStamp,
+    updatedAt: timeStamp,
+};
+    saveNotesInBlocks(s);
+    
+    // notes.push({
+    //     id: id,
+    //     title: '',
+    //     body: '',
+    //     createdAt: timeStamp,
+    //     updatedAt: timeStamp,
+    // });
+    // saveNotes(notes);
+    // location.assign(`./edit.html#${id}`);
 });
 
 

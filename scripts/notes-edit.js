@@ -1,4 +1,3 @@
-'use strict'
 
 const titleElement = document.querySelector('#note-title');
 const timeElement = document.querySelector('#time-stamp');
@@ -34,7 +33,9 @@ bodyElement.addEventListener('input', () => {
 
 document.querySelector('#remove-note').addEventListener('click', () =>{
   
-  
+     
+   // saveNotesInBlocks(notes);
+    
     saveNotes(notes);
     location.assign('./index.html');
   
