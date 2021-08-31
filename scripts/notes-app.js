@@ -1,89 +1,25 @@
-import * as contract from '../blockcodes/contract-credentials.js';
+import  contractClass from '../blockcodes/contract-credentials.js';
 'use strict'
-//var contract = require('../blockcodes/contract-credentials');
 
 
-const jsonData = [{
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_key",
-        "type": "bytes32"
-      },
-      {
-        "name": "_data",
-        "type": "string"
-      }
-    ],
-    "name": "setData",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "data",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_key",
-        "type": "bytes32"
-      },
-      {
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "getData",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-];
 window.addEventListener('load',async()=>{
     var isThere = await ethEnabled();
     getAccounts(function(result) {
         console.log(result[0]);
         localStorage.setItem('account', result[0]);
     
-        var jsonStringify = JSON.stringify(jsonData);
-        console.log(JSON.parse(jsonStringify)); 
-    //    var contractJson = JSON.parse();
+        var jsonStringify = JSON.stringify(contractClass.abi);
+        console.log(contractClass.abi);
        
-       var contract = new web3.eth.Contract(JSON.parse(jsonStringify),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
+      
+        console.log(JSON.parse(jsonStringify)); 
+    
+          var contract = new web3.eth.Contract(JSON.parse(jsonStringify),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
        var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-inblocks"),0).call().then(
-      async  function (value)  {
+       function (value)  {
 
-        
-         await getDataFromBlocks(value);
+    
+           getDataFromBlocks(value);
               
         },
        )
@@ -95,13 +31,17 @@ window.addEventListener('load',async()=>{
       }
 
 });
-
+var item =  [];
 async function getDataFromBlocks(value)
 {
-  console.log("notes" + notes);
-  
-  localStorage.setItem('notes', JSON.stringify(new Array().push(value)));
  
+  var data =  JSON.parse(value);
+  console.log(data);
+
+  
+  item.push(data);
+  console.log(item);
+  localStorage.setItem('notes', JSON.stringify(item));
 
 }
 function _bin2String(array) {
@@ -120,33 +60,10 @@ function _base64ToArrayBuffer(base64) {
   }
   return bytes.buffer;
 }
-function loadJsonData(callback)
-{
-    var request = new XMLHttpRequest();
-        request.overrideMimeType("application/json");
-        request.open("GET", "./blockcodes/contract-abi.json", false);
-        request.onreadystatechange = () => {
-            if (request.readyState === 4 && request.status === 200) {
-                // 2. call your callback function
-                //callback(xObj.responseText);
-                console.log("hitting");
-                console.log("response : " + request.responseText);
 
-            }
-            else
-            {
-                console.log("Error in parsing jsonData");  
-            }
-        }
-        //request.open("GET", "./launch.json", false);
-        request.send(null);
-
-        return request.responseText;
-}
 let notes = getSavedNotes();
-console.log("notesList");
-
-console.log(notes);
+// console.log("notesList");
+// console.log(notes);
 const timeStamp = moment().valueOf();
 const filters = {
     searchText: '',
@@ -212,7 +129,7 @@ document.querySelector('#create-note').addEventListener('click', () => {
     //     createdAt: timeStamp,
     //     updatedAt: timeStamp,
     // });
-    // saveNotes(notes);
+     //saveNotes(notes);
     // location.assign(`./edit.html#${id}`);
 });
 

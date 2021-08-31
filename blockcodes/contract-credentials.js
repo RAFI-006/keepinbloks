@@ -1,4 +1,4 @@
- class ContractCredentials
+  class ContractCredentials
 {
      static abi =[
         {
@@ -73,3 +73,5 @@
     static password = "Test123";
     static contractAddress = "0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95";
 }
+
+export default ContractCredentials;
