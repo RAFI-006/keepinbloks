@@ -13,19 +13,25 @@ window.addEventListener('load',async()=>{
        
       
         console.log(JSON.parse(jsonStringify)); 
-    
-          var contract = new web3.eth.Contract(JSON.parse(jsonStringify),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
-       var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-inblocks"),0).call().then(
+        var count =0; 
+          while(1)
+          {
+          var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
+       var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-924"),2).call().then(
        function (value)  {
 
-    
+           console.log(value);  
            getDataFromBlocks(value);
+           count = count+1;
               
         },
-       )
+       ).catch(e => break;);
+      }
+    }
+      
        
     
-      });
+      );
     if (!isThere) {
         alert("Please Install MetaMask to SignIn");
       }
@@ -37,8 +43,6 @@ async function getDataFromBlocks(value)
  
   var data =  JSON.parse(value);
   console.log(data);
-
-  
   item.push(data);
   console.log(item);
   localStorage.setItem('notes', JSON.stringify(item));
@@ -85,18 +89,7 @@ function getAccounts(callback) {
     });
 }
 
-const saveNotesInBlocks = (notes) => {
-  var account =   localStorage.getItem('account');
-  console.log(account);
-  var contract = new web3.eth.Contract(JSON.parse(JSON.stringify(jsonData)),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
 
-  contract.methods.setData(web3.utils.asciiToHex("rafi-inblocks"),JSON.stringify(notes)).send({from:account});
-  
-  contract.events.NewValue({},function(error,event){
-  
-      console.log(event);
-  })
-}
 const ethEnabled = async () => {
   if (window.ethereum) {
     await window.ethereum.send('eth_requestAccounts');
@@ -115,22 +108,22 @@ document.querySelector('#create-note').addEventListener('click', () => {
  
   var  s ={
     id: id,
-    title: 'Hey',
-    body: 'My first data into blockchain via javascript',
+    title: '',
+    body: '',
     createdAt: timeStamp,
     updatedAt: timeStamp,
 };
-    saveNotesInBlocks(s);
+   // saveNotesInBlocks(s);
     
-    // notes.push({
-    //     id: id,
-    //     title: '',
-    //     body: '',
-    //     createdAt: timeStamp,
-    //     updatedAt: timeStamp,
-    // });
-     //saveNotes(notes);
-    // location.assign(`./edit.html#${id}`);
+    notes.push({
+        id: id,
+        title: '',
+        body: '',
+        createdAt: timeStamp,
+        updatedAt: timeStamp,
+    });
+     saveNotes(notes);
+     location.assign(`./edit.html#${id}`);
 });
 
 
