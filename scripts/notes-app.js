@@ -1,53 +1,77 @@
 import  contractClass from '../blockcodes/contract-credentials.js';
 'use strict'
 
-
+var count = 0; 
 window.addEventListener('load',async()=>{
     var isThere = await ethEnabled();
     getAccounts(function(result) {
         console.log(result[0]);
         localStorage.setItem('account', result[0]);
-    
-        var jsonStringify = JSON.stringify(contractClass.abi);
-        console.log(contractClass.abi);
-       
-      
-        console.log(JSON.parse(jsonStringify)); 
-        var count =0; 
-          while(1)
-          {
-          var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
-       var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-924"),2).call().then(
-       function (value)  {
-
-           console.log(value);  
-           getDataFromBlocks(value);
-           count = count+1;
-              
-        },
-       ).catch(e => break;);
-      }
     }
-      
-       
-    
       );
+      getDataFromBlocks()
     if (!isThere) {
         alert("Please Install MetaMask to SignIn");
       }
 
 });
 var item =  [];
-async function getDataFromBlocks(value)
+async function getDataFromBlocks()
 {
- 
-  var data =  JSON.parse(value);
-  console.log(data);
-  item.push(data);
-  console.log(item);
-  localStorage.setItem('notes', JSON.stringify(item));
+  var jsonStringify = JSON.stringify(contractClass.abi);
+  console.log(contractClass.abi);
+  let i = 0
+  let msg ="";
+  console.log(JSON.parse(jsonStringify)); 
+  for ( i = 0; i < 8; i++) {
+       
+       
+var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
+try
+{
+var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-924"),i).call().then(
+ function (value)  {
+
+     console.log(value);  
+     var data =  JSON.parse(value);
+     console.log(data);
+     item.push(data);
+     console.log(item);
+     localStorage.setItem('notes', JSON.stringify(item));
+     count = count+1;
+        
+  },
+ )
+ .catch(function(error){
+  
+  
+   msg =  error.message;
+   msg == "invalid opcode: opcode 0xfe not defined";
+   console.log("hitting");
+     
+ });
+}
+catch(e)
+{
+  console.log("hitting");
+   break;
+}
+console.log(msg);   
+if(msg == "invalid opcode: opcode 0xfe not defined")
+ {
+
+console.log("hitting" + i);   
+break;
+ }
 
 }
+
+
+
+}
+
+
+
 function _bin2String(array) {
   var result = "";
   for (var i = 0; i < array.length; i++) {
