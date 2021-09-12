@@ -10,6 +10,9 @@ window.addEventListener('load',async()=>{
     }
       );
       getDataFromBlocks()
+
+      document.getElementById("loader_icon").style.visibility = "hidden";
+       
     if (!isThere) {
         alert("Please Install MetaMask to SignIn");
       }

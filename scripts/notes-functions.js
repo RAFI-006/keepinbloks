@@ -42,32 +42,21 @@ const generateNoteDOM = (note) => {
     noteEl.setAttribute('id','parent');
     const textEl = document.createElement('p');
     const statusEl = document.createElement('p');
-    // const btn = document.createElement('button');
-    const icon = document.createElement('i');
-    var parent=document.getElementById('parent');
+    const bodyText =  document.createElement('p');
+   
+   
     // Setup the note title text
     if (note.title.length > 0){
          textEl.textContent = note.title;
+         bodyText.textContent = note.body;
          textEl.classList.add('list-item__title');
-        //  btn.appendChild(icon);
-         
+         bodyText.classList.add('list-item__body')
         
-        //  noteEl.appendChild(btn); 
-     
-
-    //     noteEl.appendChild(icon);
          noteEl.appendChild(textEl);
-            
+         noteEl.appendChild(bodyText);
     
    
-    //Setup the link
-  //  noteEl.setAttribute('href', `./edit.html#${note.id}`)
-    // icon.classList.add('fas');
-    // icon.classList.add('fa-trash');
-    // icon.classList.add('delete_icon');
-    // // icon.classList.add('button');
-    // // icon.setAttribute('id','delete_icon_id');
-    // btn.classList.add('delete-button');
+ 
      
     noteEl.classList.add('list-item');
 
