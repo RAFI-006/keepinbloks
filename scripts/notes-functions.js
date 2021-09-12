@@ -42,17 +42,17 @@ const generateNoteDOM = (note) => {
     noteEl.setAttribute('id','parent');
     const textEl = document.createElement('p');
     const statusEl = document.createElement('p');
-    const btn = document.createElement('button');
+    // const btn = document.createElement('button');
     const icon = document.createElement('i');
     var parent=document.getElementById('parent');
     // Setup the note title text
     if (note.title.length > 0){
          textEl.textContent = note.title;
          textEl.classList.add('list-item__title');
-         btn.appendChild(icon);
+        //  btn.appendChild(icon);
          
         
-         noteEl.appendChild(btn); 
+        //  noteEl.appendChild(btn); 
      
 
     //     noteEl.appendChild(icon);
@@ -62,12 +62,12 @@ const generateNoteDOM = (note) => {
    
     //Setup the link
   //  noteEl.setAttribute('href', `./edit.html#${note.id}`)
-    icon.classList.add('fas');
-    icon.classList.add('fa-trash');
-    icon.classList.add('delete_icon');
-    // icon.classList.add('button');
-    // icon.setAttribute('id','delete_icon_id');
-    btn.classList.add('delete-button');
+    // icon.classList.add('fas');
+    // icon.classList.add('fa-trash');
+    // icon.classList.add('delete_icon');
+    // // icon.classList.add('button');
+    // // icon.setAttribute('id','delete_icon_id');
+    // btn.classList.add('delete-button');
      
     noteEl.classList.add('list-item');
 
@@ -75,12 +75,12 @@ const generateNoteDOM = (note) => {
     statusEl.textContent = generateLastEdited(note.updatedAt);
     statusEl.classList.add('list-item__subtitle');
     noteEl.appendChild(statusEl);
-    btn.addEventListener('click', (e) => {
+    // btn.addEventListener('click', (e) => {
       
-        removeNote(note.id);
-         saveNotes(notes);
-          location.reload();
-      });
+    //     removeNote(note.id);
+    //      saveNotes(notes);
+    //       location.reload();
+    //   });
    
       noteEl.addEventListener('click', (e) => {
         
