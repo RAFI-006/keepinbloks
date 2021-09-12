@@ -75,24 +75,11 @@ const generateNoteDOM = (note) => {
     statusEl.textContent = generateLastEdited(note.updatedAt);
     statusEl.classList.add('list-item__subtitle');
     noteEl.appendChild(statusEl);
-    // btn.addEventListener('click', (e) => {
-      
-    //     removeNote(note.id);
-    //      saveNotes(notes);
-    //       location.reload();
-    //   });
    
       noteEl.addEventListener('click', (e) => {
         
-      if(e.target.id == 'parent')
-      {  console.log("parent hitting");
-       //   location.href = "./edit.html#${note.id}";
-          location.assign(`./edit.html#${note.id}`);
-      
-    }
-        
-       
-          // saveNotes(notes);
+    
+       location.assign(`./edit.html#${note.id}`);
        })
 
     }
