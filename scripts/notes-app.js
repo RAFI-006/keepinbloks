@@ -26,7 +26,7 @@ async function getDataFromBlocks()
   let i = 0
   let msg ="";
   console.log(JSON.parse(jsonStringify)); 
-  for ( i = 0; i < 8; i++) {
+  for ( i = 0; i < 10; i++) {
        
        
 var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)

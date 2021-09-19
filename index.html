@@ -5,34 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./styles/styles.css">
-    <title>Keep In Bloks</title>
+    <title>Keep In Blocks</title>
 </head>
 <body>
     <div class="loader" id="loader_icon"></div>
 <div class="header">
-    <div class="container">
+    <div class=".header_container">
         <h1 class="header__title">Keep In Bloks</h1>
         <h2 class="header__subtitle">Add Paswword & Cards and never loose</h2>
     </div>
+    <input id="search-text" type="text" class="input" placeholder="Search">
+    <a href="https://ropsten.etherscan.io/address/">My Transactions</a><span id="time-stamp"></span>
 </div>
 
-<div class="actions">
+<!-- <div class="actions">
     <div class="actions__container">
-        <input id="search-text" type="text" class="input" placeholder="Filter todos">
+        <input id="search-text" type="text" class="input" placeholder="Search">
         <select name="" id="filter-by" class="dropdown">
-            <option value="byEdited">Sort by last edited</option>
             <option value="byCreated">Sort by recently created</option>
             <option value="alphabetical">Sort alphabetically</option>
         </select>
     </div>
-</div>
+</div> -->
 <div class="container">
-    
+   
+    <div class="actions__container">
+        <input id="create-note" type="button" class="create-button" value="Create Note">
+        <select name="" id="filter-by" class="dropdown">
+            <option value="byCreated">Sort by recently created</option>
+            <option value="alphabetical">Sort alphabetically</option>
+        </select>
+    </div>  
     <div id="notes">
       </div>
    
      
-      <button id="create-note" class="button">Create Note</button>    
+      
 </div>    
     <script src="./scripts/uuid.js"></script>
     <script type="module" src="./scripts/notes-app.js"></script>

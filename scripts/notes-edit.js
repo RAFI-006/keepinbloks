@@ -4,7 +4,7 @@ const timeElement = document.querySelector('#time-stamp');
 const bodyElement = document.querySelector('#note-body');
 window.addEventListener('load',async()=>{
     var isThere = await ethEnabled();
-   
+    document.getElementById("loader_icon").style.visibility = "hidden";
     if (!isThere) {
         alert("Please Install MetaMask to SignIn");
       }
@@ -41,6 +41,7 @@ bodyElement.addEventListener('input', () => {
 
 document.querySelector('#remove-note').addEventListener('click', () =>{
   
+    document.getElementById("loader_icon").style.visibility = "visible";
     var  s ={
         id:noteId,
         title:  note.title,
@@ -73,12 +74,14 @@ const saveNotesInBlocks = (s) => {
     console.log(account);
     var contract = new web3.eth.Contract(JSON.parse(JSON.stringify(contractClass.abi)),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
   
-    contract.methods.setData(web3.utils.asciiToHex("rafi-924"),JSON.stringify(s)).send({from:account});
+    contract.methods.setData(web3.utils.asciiToHex("rafi-924"),JSON.stringify(s)).send({from:account}).on('receipt',function(){
+        location.assign('./index.html')
+    });
     
-    contract.events.NewValue({},function(error,event){
+    // contract.events.NewValue({},function(error,event){
     
-        console.log(event);
-    })
+    //     console.log("hitting event");
+    // })
   }
 
 window.addEventListener('storage', (e) =>{
