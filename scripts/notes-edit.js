@@ -2,6 +2,7 @@ import  contractClass from '../blockcodes/contract-credentials.js';
 const titleElement = document.querySelector('#note-title');
 const timeElement = document.querySelector('#time-stamp');
 const bodyElement = document.querySelector('#note-body');
+
 window.addEventListener('load',async()=>{
     var isThere = await ethEnabled();
     document.getElementById("loader_icon").style.visibility = "hidden";
@@ -21,7 +22,7 @@ let note = notes.find( (note) => note.id === noteId);
 // }
 
 //Get the existing note's info from the page
-timeElement.textContent = generateLastEdited(note.updatedAt);
+// timeElement.textContent = generateLastEdited(note.updatedAt);
 titleElement.value = note.title;
 bodyElement.value = note.body;
 
@@ -74,8 +75,12 @@ const saveNotesInBlocks = (s) => {
     console.log(account);
     var contract = new web3.eth.Contract(JSON.parse(JSON.stringify(contractClass.abi)),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
   
-    contract.methods.setData(web3.utils.asciiToHex("rafi-924"),JSON.stringify(s)).send({from:account}).on('receipt',function(){
-        location.assign('./index.html')
+    contract.methods.setData(web3.utils.asciiToHex("rafi-123"),JSON.stringify(s)).send({from:account}).on('receipt',function(){
+      
+       
+        
+        location.assign('./index.html');
+        localStorage.setItem("reload","true");
     });
     
     // contract.events.NewValue({},function(error,event){

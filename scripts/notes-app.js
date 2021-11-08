@@ -1,9 +1,20 @@
 import  contractClass from '../blockcodes/contract-credentials.js';
-'use strict'
+ 
 
 var count = 0; 
 window.addEventListener('load',async()=>{
+   
+  console.log(localStorage.getItem("reload"));
+      //  window.location.reload();
     var isThere = await ethEnabled();
+    if (!isThere) {
+      alert("Please Install MetaMask to SignIn");
+      console.log("Please Install MetaMask to SignIn");
+      document.getElementById("loader_icon").style.visibility = "hidden";
+
+    }
+    else
+    {
     getAccounts(function(result) {
         console.log(result[0]);
         localStorage.setItem('account', result[0]);
@@ -12,10 +23,16 @@ window.addEventListener('load',async()=>{
       getDataFromBlocks()
 
       document.getElementById("loader_icon").style.visibility = "hidden";
+  }
        
-    if (!isThere) {
-        alert("Please Install MetaMask to SignIn");
-      }
+  if(localStorage.getItem("reload") == "true")
+  {
+    console.log("reloading");
+    localStorage.setItem("reload","false");
+    window.location.reload();
+  }
+  
+  console.log(localStorage.getItem("reload"));
 
 });
 var item =  [];
@@ -26,13 +43,15 @@ async function getDataFromBlocks()
   let i = 0
   let msg ="";
   console.log(JSON.parse(jsonStringify)); 
-  for ( i = 0; i < 10; i++) {
+  console.log(JSON.parse(jsonStringify));
+  
+  for ( i = 0; i < 30; i++) {
        
        
 var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
 try
 {
-var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-924"),i).call().then(
+var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-123"),i).call().then(
  function (value)  {
 
      console.log(value);  
@@ -69,7 +88,7 @@ break;
 
 }
 
-
+ 
 
 }
 
@@ -93,6 +112,8 @@ function _base64ToArrayBuffer(base64) {
 }
 
 let notes = getSavedNotes();
+
+
 // console.log("notesList");
 // console.log(notes);
 const timeStamp = moment().valueOf();
@@ -151,6 +172,13 @@ document.querySelector('#create-note').addEventListener('click', () => {
     });
      saveNotes(notes);
      location.assign(`./edit.html#${id}`);
+});
+
+document.querySelector('#my_transaction').addEventListener('click', () => {
+  const id = uuidv4();
+ 
+ 
+     location.assign(`https://ropsten.etherscan.io/address/${localStorage.getItem('account')}`);
 });
 
 

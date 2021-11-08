@@ -35,6 +35,10 @@ const removeNote = (id) => {
     }
 }
 
+const clearNotes =() =>
+{
+    notes.splice(0,notes.length);   
+}
 
 // Generate the DOM structure for a note
 const generateNoteDOM = (note) => {
@@ -67,8 +71,9 @@ const generateNoteDOM = (note) => {
    
       noteEl.addEventListener('click', (e) => {
         
-    
-       location.assign(`./edit.html#${note.id}`);
+        // document.execCommand('copy');
+        // console.log("click working");
+      //  location.assign("https://ropsten.etherscan.io/address/");
        })
 
     }
