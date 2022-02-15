@@ -120,6 +120,10 @@ const sortNotes = (notes, sortBy) => {
 
 // Render application notes
 const renderNotes = (notes, filters) => { 
+    console.log("filtered notes");
+    notes = getSavedNotes();
+    console.log(notes);
+
     const notesEl = document.querySelector('#notes') 
     notes = sortNotes(notes, filters.sortBy);
     const filteredNotes = notes.filter( (note) => {

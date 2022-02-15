@@ -54,7 +54,7 @@ document.querySelector('#remove-note').addEventListener('click', () =>{
     console.log(JSON.stringify(s));
      saveNotesInBlocks(s); 
     
-    //saveNotes(notes);
+     saveNotes(notes);
    // location.assign('./index.html');
   
    

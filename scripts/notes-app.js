@@ -2,10 +2,19 @@ import  contractClass from '../blockcodes/contract-credentials.js';
  
 
 var count = 0; 
+let notes = getSavedNotes();
 window.addEventListener('load',async()=>{
    
   console.log(localStorage.getItem("reload"));
       //  window.location.reload();
+      console.log("Notes Lengh " + "" +notes.length);
+      //print("Notes Lengh " + "" +notes.length)
+      if(notes.length>=1)
+    {
+    
+      notes.splice(0,notes.length);
+      
+    }
     var isThere = await ethEnabled();
     if (!isThere) {
       alert("Please Install MetaMask to SignIn");
@@ -21,7 +30,7 @@ window.addEventListener('load',async()=>{
     }
       );
       getDataFromBlocks()
-
+     
       document.getElementById("loader_icon").style.visibility = "hidden";
   }
        
@@ -45,7 +54,7 @@ async function getDataFromBlocks()
   console.log(JSON.parse(jsonStringify)); 
   console.log(JSON.parse(jsonStringify));
   
-  for ( i = 0; i < 30; i++) {
+  for ( i = 0; i < 36; i++) {
        
        
 var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
@@ -111,7 +120,7 @@ function _base64ToArrayBuffer(base64) {
   return bytes.buffer;
 }
 
-let notes = getSavedNotes();
+
 
 
 // console.log("notesList");
@@ -183,6 +192,7 @@ document.querySelector('#my_transaction').addEventListener('click', () => {
 
 
 document.querySelector('#search-text').addEventListener('input', (e) => {
+   console.log("search hitting");
     filters.searchText = e.target.value;
     renderNotes(notes, filters);
 });
