@@ -16,7 +16,11 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
 }
+.reload_msg {
+font-size: 14;
+margin-left: .8rem;
 
+}
 button {
   cursor: pointer;
 }

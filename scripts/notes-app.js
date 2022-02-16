@@ -2,19 +2,19 @@ import  contractClass from '../blockcodes/contract-credentials.js';
  
 
 var count = 0; 
-let notes = getSavedNotes();
+let notes = [];
 window.addEventListener('load',async()=>{
    
   console.log(localStorage.getItem("reload"));
       //  window.location.reload();
       console.log("Notes Lengh " + "" +notes.length);
       //print("Notes Lengh " + "" +notes.length)
-      if(notes.length>=1)
-    {
+    //   if(notes.length>=1)
+    // {
     
-      notes.splice(0,notes.length);
+    //   notes.splice(0,notes.length);
       
-    }
+    // }
     var isThere = await ethEnabled();
     if (!isThere) {
       alert("Please Install MetaMask to SignIn");
@@ -55,12 +55,10 @@ async function getDataFromBlocks()
   console.log(JSON.parse(jsonStringify));
   
   for ( i = 0; i < 36; i++) {
-       
-       
-var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
+       var contract = new web3.eth.Contract(JSON.parse(jsonStringify),contractClass.contractAddress)
 try
 {
-var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-123"),i).call().then(
+var s =  contract.methods.getData(localStorage.getItem('account'),i).call().then(
  function (value)  {
 
      console.log(value);  
@@ -68,6 +66,7 @@ var s =  contract.methods.getData(web3.utils.asciiToHex("rafi-123"),i).call().th
      console.log(data);
      item.push(data);
      console.log(item);
+    // notes.push(item);
      localStorage.setItem('notes', JSON.stringify(item));
      count = count+1;
         

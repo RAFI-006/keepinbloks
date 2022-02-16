@@ -71,14 +71,11 @@ const ethEnabled = async () => {
 
 const saveNotesInBlocks = (s) => {
    
-    var account =   localStorage.getItem('account');
+    var account = localStorage.getItem('account');
     console.log(account);
     var contract = new web3.eth.Contract(JSON.parse(JSON.stringify(contractClass.abi)),"0x7ab1fe4049200b57e34e8298d98fc590e9ec1f95")
   
-    contract.methods.setData(web3.utils.asciiToHex("rafi-123"),JSON.stringify(s)).send({from:account}).on('receipt',function(){
-      
-       
-        
+    contract.methods.setData(account,JSON.stringify(s)).send({from:account}).on('receipt',function(){
         location.assign('./index.html');
         localStorage.setItem("reload","true");
     });
